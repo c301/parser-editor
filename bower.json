@@ -1,0 +1,22 @@
+{
+  "name": "parserEditor",
+  "version": "0.0.1",
+  "authors": [
+    "Anton Sivolapov <anton.sivolapov@gmail.com>"
+  ],
+  "main": "index.html",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "lodash": "~2.4.1",
+    "q": "~2.0.2",
+    "dojo": "~1.10.0"
+  }
+}
