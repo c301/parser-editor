@@ -1,4 +1,6 @@
 define([ 'test/test-data' ], function () {
+    "use strict";
+
     console.log('Storage loading..');
 
     //fill db with arbitrary data
