@@ -3,81 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <title>Parser Editor</title>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-
+    <link rel="stylesheet" href="bower_components/dijit/themes/claro/claro.css" />
     <script src="dojoConfig.js"></script>
     <script src="bower_components/dojo/dojo.js"></script>
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            overflow:hidden;
+        }
+
+        #borderContainer {
+            width: 100%;
+            height: 100%;
+        }
+        #workspace {
+            width: 100px;
+            height: 100px;
+            border: 1px solid black;
+        }
+    </style>
+
 </head>
-<body>
-    <div id="greeting">Hello!</div>
+<body id="body" class="claro">
+<div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="design:'sidebar', gutters:true, liveSplitters:true" id="borderContainer">
 
+    <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="splitter:true, region:'leading'" style="width: 300px;">
+        <div id="library-tree"></div>
+    </div>
 
-    <div class="container">
-	<div class="row clearfix">
-		<div class="col-md-12 column">
-			<h4>
-                Parser Editor
-			</h4>
-		</div>
-	</div>
-	<div class="row clearfix">
-		<div class="col-md-6 column">
-			<ul>
-                <li class="library-element">Library Item</li>
-			    <li class="library-element">Library Item</li>
-			    <li class="library-element">Library Item</li>
-			    <li class="library-element">Library Item</li>
-			    <li class="library-element">Library Item</li>
-			</ul> 
-            <button type="button" class="btn btn-default"  id="modal-601368" href="#library-item-editor" role="button" class="btn" data-toggle="modal">Add new element to library</button>
-		</div>
-		<div class="col-md-6 column">
-			<form role="form">
-				<div class="form-group">
-					 <label for="exampleInputEmail1">Email address</label><input type="email" class="form-control" id="exampleInputEmail1" />
-				</div>
-				<div class="form-group">
-					 <label for="exampleInputPassword1">Password</label><input type="password" class="form-control" id="exampleInputPassword1" />
-				</div>
-				<div class="form-group">
-					 <label for="exampleInputFile">File input</label><input type="file" id="exampleInputFile" />
-					<p class="help-block">
-						Example block-level help text here.
-					</p>
-				</div>
-				<div class="checkbox">
-					 <label><input type="checkbox" /> Check me out</label>
-				</div> <button type="submit" class="btn btn-default">Submit</button>
-			</form>
-		</div>
-	</div>
-</div>
-
-<div class="modal fade" id="library-item-editor" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title" id="myModalLabel">
-                    Modal title
-                </h4>
-            </div>
-            <div class="modal-body">
-                ...
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-
+    <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="splitter:true, region:'center'">
+        <div id="library-content"></div>
+        <div id="workspace">source</div>
+        <button id="add-new-child">Add child</button>
     </div>
 </div>
 
