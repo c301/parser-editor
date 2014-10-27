@@ -1,0 +1,61 @@
+.react-draggable {
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+.workspace-draggable{
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+.workspace-row{
+  /* overflow: auto; */
+}
+.container.main {
+  overflow: hidden;
+  padding: 0 0 400px 0;
+}
+.row {
+  margin: 0;
+  padding: 7px 30px;
+}
+.dropdown-menu {
+  position: absolute;
+}
+.row.workspace-item:hover {
+  background-color: rgba(0, 255, 0, 0.05);
+  background-opacity: 0.5;
+  cursor: pointer;
+}
+.row .obj-controls {
+  padding-left: 10px;
+}
+.row .obj-type {
+  font-style: italic;
+  padding-left: 10px;
+}
+.row .obj-name.obj-manual {
+  font-weight: bold;
+}
+.row .obj-name.obj-auto {
+  color : gray;
+}
+.row .obj-name.obj-tmpl {
+  font-weight: bold;
+}
+
+/* Placeholder for sorting */
+div.placeholder { background: rgb(255,240,120);}
+div.placeholder:before {content: "Drop here"; color: rgb(225,210,90);}
+
+
+/* Other stuff */
+#add-operation textarea{
+  width: 100%;
+}
