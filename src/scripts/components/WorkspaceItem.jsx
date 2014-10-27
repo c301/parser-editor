@@ -5,7 +5,6 @@
 'use strict';
 
 var React = require('react/addons');
-var Draggable = require('react-draggable');
 var _ = require('lodash');
 var $ = require('jquery');
 var workspaceStore = require('../js/workspaceStore');
