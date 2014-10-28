@@ -246,6 +246,6 @@ window.workspaceStore = {
       cb();
     })
   }
-}
+};
 
 module.exports = workspaceStore;
