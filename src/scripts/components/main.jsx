@@ -15,7 +15,6 @@ require('../../../bower_components/bootstrap/dist/css/bootstrap.css');
 require('../../../bower_components/bootstrap/dist/js/bootstrap.js');
 
 var rootItem = workspaceStore.getRootItems()[0];
-
 React.renderComponent(
   <Workspace
     showControls={true}

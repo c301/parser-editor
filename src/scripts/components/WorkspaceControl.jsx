@@ -32,19 +32,19 @@ var WorkspaceControl = React.createClass({
     this.props.onInstanseSelected(e.target.value);
   },
   createNewInstanse: function () {
-    var name = this.refs.newItemName.getDOMNode().value;
-    console.log('createNewInstanse', this.refs.newItemName, name);
-    if(name){
-      var newItem = {
-        name: name,
-        ancestor: this.state.rootType.id
+      var name = this.refs.newItemName.getDOMNode().value;
+      if(name){
+          var newItem = {
+              name: name,
+              ancestor: this.state.rootType.id
+          }
+          var newItemId = workspaceActions.createItem(newItem);
+
+          this.refs.newItemName.getDOMNode().value = '';
+      }else{
+          //place notification here
+          console.log('Empty name. Please pick up the name first');
       }
-      workspaceActions.createItem(newItem);
-      this.refs.newItemName.getDOMNode().value = '';
-    }else{
-      //place notification here
-      console.log('Empty name. Please pick up the name first');
-    }
   },
   render: function () {
     var typeSelectBoxOptions = [];

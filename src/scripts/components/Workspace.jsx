@@ -132,9 +132,11 @@ var Workspace = React.createClass({
 
     updateRootItems: function () {
         var rootItems = workspaceStore.getRootItems();
-        this.setState({
-            rootItems: rootItems
-        });
+        if(rootItems){
+            this.setState({
+                item: rootItems[0]
+            });
+        }
     },
     componentDidMount: function () {
         this.listener = workspaceStore.addChangeListener(this.updateRootItems);
@@ -145,12 +147,14 @@ var Workspace = React.createClass({
     },
 
     onInstanseSelected: function (newRootId) {
-      this.setState({
-          item: workspaceStore.getByItemId(newRootId)
-      });
+        var newRoot = workspaceStore.getByItemId(newRootId);
+        this.setState({
+            item: newRoot
+        });
     },
     render: function () {
         var item = this.state.item;
+        var wItem = false;
         var rootTypes = workspaceStore.getRootArrays();
         var rootInstanses = workspaceStore.getInstanses(rootTypes);
         var controls = false;
@@ -163,11 +167,8 @@ var Workspace = React.createClass({
             />
           );
         }
-        return (
-          <div>
-            {controls}
-
-            <div className="row workspace-row">
+        if(item){
+            wItem = (
               <WorkspaceItem
                 showControls={this.props.showControls}
                 dragStart={this.dragStart}
@@ -177,6 +178,13 @@ var Workspace = React.createClass({
                 key={item.id}
                 item={item}
               />
+            )
+        }
+        return (
+          <div>
+            {controls}
+            {wItem}
+            <div className="row workspace-row">
             </div>
           </div>
         )
