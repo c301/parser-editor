@@ -206,7 +206,7 @@ window.workspaceStore = {
   deleteItem: function (item) {
     var removeItemAndChild = function (nextItem) {
       return ( item.id != nextItem.id) && (item.id != nextItem.parent);
-    }
+    };
     this.workspaceState = _.filter(this.workspaceState, removeItemAndChild)
     this.emitChanges();
   },
