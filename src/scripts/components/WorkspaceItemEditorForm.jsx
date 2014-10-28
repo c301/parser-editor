@@ -27,17 +27,42 @@ var WorkspaceItemEditorForm = React.createClass({
 
     function getFormContent(item) {
       var content = [];
-      var parameters = [1,2,3,4];
-      _.each( parameters, function ( parameter ) {
+      var attributes = workspaceStore.getItemAttributes(item);
+      console.log('attributes', attributes);
+      _.each( attributes, function ( attribute ) {
+        var inputEl = (
+            <div className="form-group">
+                <label>{attribute.name}</label>
+                <input type="text"
+                    className="form-control"
+                    defaultValue={attribute.value}
+                    ref="itemName"
+                />
+            </div>
+        )
+        if( attribute.type == "struct" || attribute.type == "array"){
+            inputEl = (
+                <div className="form-group">
+                    <label>{attribute.name}</label>
+                    <span class="label">{attribute.value}
+                        <a href="#" 
+                            className="btn btn-link btn-xs">
+                            <span className="glyphicon glyphicon-trash"></span>
+                        </a>
+                    </span>
+                </div>
+            )
+        }
+        if( attribute.type == "bool" ){
+            inputEl = (
+                <div className="form-group">
+                    <label><input type="checkbox" /> {attribute.name}</label>
+                </div>
+            )
+        }
+
         content.push(
-          <div className="form-group">
-            <label>Item Name {parameter}</label>
-            <input type="text"
-              className="form-control"
-              defaultValue={item.name}
-              ref="itemName"
-            />
-          </div>
+            {inputEl}
         );
       })
 
@@ -52,30 +77,32 @@ var WorkspaceItemEditorForm = React.createClass({
     if(this.props.editing && !this.innerWorkspace){
       var Workspace = require('./Workspace');
       var item = this.props.item;
-      this.innerWorkspace = <Workspace item={item} showControls={false}/>;
+      this.innerWorkspace = (
+            <div className="form-group">
+                <Workspace item={item} showControls={false}/>
+            </div>
+      )
     }
     var formContent = getFormContent(item);
 
     return (
-      <form  role="form" ref="itemEditor">
-          <div className="form-group">
-            <label>Item Name</label>
-            <input type="text"
-              className="form-control"
-              defaultValue={item.name}
-              ref="itemName"
-            />
-          </div>
-
-          {formContent}
-
-          <div className="checkbox">
-          <label><input type="checkbox" /> Check me out</label>
-        </div>
-        {this.innerWorkspace}
-        <button type="button"  onClick={this.submitChanges}
-        className="btn btn-primary">Save changes</button>
-      </form>
+        <form  role="form" ref="itemEditor">
+            <div className="form-group">
+                <label>Name</label>
+                <input type="text"
+                    className="form-control"
+                    defaultValue={item.name}
+                    ref="itemName"
+                />
+            </div>
+            <hr/>
+            {formContent}
+            <hr/>
+            {this.innerWorkspace}
+            <hr/>
+            <button type="button"  onClick={this.submitChanges}
+                className="btn btn-primary">Save changes</button>
+        </form>
     )
   }
 })

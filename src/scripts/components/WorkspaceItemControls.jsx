@@ -40,13 +40,12 @@ var WorkspaceItemControls = React.createClass({
     var item = this.props.item;
     return (
             <span className="obj-controls">
-            <EditRow handleClick={this.props.handleEditClick}></EditRow>
-            <DeleteItem item={item}></DeleteItem>
-            <AddRow ></AddRow>
-            <SortRow item={item}></SortRow>
-            <AddNewChildItem
-            item={item}
-            />
+                <EditRow handleClick={this.props.handleEditClick}></EditRow>
+                <DeleteItem item={item}></DeleteItem>
+                <SortRow item={item}></SortRow>
+                <AddNewChildItem
+                    item={item}
+                />
             </span>
            )
   }
