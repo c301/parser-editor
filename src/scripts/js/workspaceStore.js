@@ -179,6 +179,7 @@ window.workspaceStore = {
         // console.log('New Item created', newItem);
         this.workspaceState.push(newItem);
         this.emitChanges();
+        return newItem.id;
     },
     update: function (id, updates) {
         var updateById = function (item) {
@@ -189,7 +190,7 @@ window.workspaceStore = {
                 return item;
             }
         }
-        this.workspaceState = _.map(this.workspaceState, updateById )
+        this.workspaceState = _.map(this.workspaceState, updateById );
     },
     deleteItem: function (item) {
         var removeItemAndChild = function (nextItem) {

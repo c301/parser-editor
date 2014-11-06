@@ -20,7 +20,6 @@ var WorkspaceItemEditorForm = React.createClass({
     var updates = {
       name: nameEl.value
     }
-    console.log('update with name', updates.name)
     workspaceActions.updateItem(this.props.item.id, updates);
   },
   render: function () {
@@ -28,7 +27,6 @@ var WorkspaceItemEditorForm = React.createClass({
     function getFormContent(item) {
       var content = [];
       var attributes = workspaceStore.getItemAttributes(item);
-      console.log('attributes', attributes);
       _.each( attributes, function ( attribute ) {
         var inputEl = (
             <div className="form-group">

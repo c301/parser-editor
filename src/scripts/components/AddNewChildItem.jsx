@@ -19,12 +19,8 @@ var AddNewWorkspaceItem = React.createClass({
     }
   },
   handleSubmit: function (e) {
-    var self = this;
-    var idToInstantiate = this.state.addingItem;
-    var parentItem = this.props.item;
     var $modal = $(this.refs.itemAddModal.getDOMNode());
     $modal.modal('hide');
-    workspaceActions.instantiateClass(idToInstantiate, parentItem);
     this.setState({
       adding: false
     })
@@ -72,7 +68,7 @@ var AddNewWorkspaceItem = React.createClass({
                     <div className="modal-header">
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">×</button>
                         <h4 className="modal-title" id="myModalLabel">
-                            Add item: {this.state.addingItem.name}
+                            Add item: {this.state.addingItem ? this.state.addingItem.name : false}
                         </h4>
                     </div>
                     <div className="modal-body">

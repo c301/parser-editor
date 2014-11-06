@@ -6,10 +6,27 @@
 
 var React = require('react/addons');
 var _ = require('lodash');
+var workspaceActions = require('../js/workspaceActions');
 
 var WorkspaceAddNewForm = React.createClass({
   submitChanges: function (e) {
-    this.props.handleSubmit(e);
+      var form = this.refs.editorForm.getDOMNode();
+      var item = this.props.item;
+      var elements = _.filter(form.elements, function (el) {
+          return !!el.name;
+      })
+      var childToInstantiate = _.map( elements, function (el) {
+          return {
+              ancestor: el.name,
+              value: el.value
+          }
+      })
+      workspaceActions.createItemAndAttributes(
+          this.props.addingItem, 
+          this.props.item, 
+          childToInstantiate
+      );
+      this.props.handleSubmit(e);
   },
   render: function () {
     var item = this.props.addingItem;
@@ -24,15 +41,20 @@ var WorkspaceAddNewForm = React.createClass({
                 <label>{attribute.name}</label>
                 <input type="text"
                     className="form-control"
+                    name={attribute.id}
                     defaultValue={attribute.value}
                     ref="itemName"
                 />
             </div>
-        )
+        );
         if( attribute.type == "struct" || attribute.type == "array"){
             inputEl = (
                 <div className="form-group">
                     <label>{attribute.name}</label>
+                    <input 
+                        name={attribute.id}
+                        value="on"
+                        type="hidden" /> 
                     <span class="label">{attribute.value}
                         <a href="#" 
                             className="btn btn-link btn-xs">
@@ -49,7 +71,12 @@ var WorkspaceAddNewForm = React.createClass({
         if( attribute.type == "bool" ){
             inputEl = (
                 <div className="form-group">
-                    <label><input type="checkbox" /> {attribute.name}</label>
+                    <label>
+                        <input 
+                            name={attribute.id}
+                            type="checkbox" /> 
+                        {attribute.name}
+                    </label>
                 </div>
             )
         }
@@ -65,7 +92,7 @@ var WorkspaceAddNewForm = React.createClass({
     var formContent = item ? getFormContent(item) : false;
 
     return (
-      <form  role="form" ref="itemEditor">
+      <form  role="form" ref="editorForm">
         {formContent}
         <button type="button"  onClick={this.submitChanges}
             className="btn btn-primary">

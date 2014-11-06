@@ -1,4 +1,5 @@
 var workspaceStore = require('./workspaceStore');
+var _ = require('lodash');
 
 var WorkspaceActions = {
   createItem: function (fields) {
@@ -18,6 +19,19 @@ var WorkspaceActions = {
   },
   addOperation: function (operation) {
     workspaceStore.addOperation(operation);
+  },
+  createItemAndAttributes: function ( ancestorItem, parentItem, attributes) {
+      var newId = workspaceStore.createItem({
+          ancestor: ancestorItem.id,
+          parent: parentItem.id
+      });
+      _.each(attributes, function (attr) {
+            workspaceStore.createItem({
+                value: attr.value,
+                ancestor: attr.ancestor,
+                parent: newId
+            });
+      })
   }
 }
 
