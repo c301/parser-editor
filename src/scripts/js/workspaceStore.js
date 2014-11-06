@@ -1,6 +1,17 @@
 'use strict';
 
 var _ = require('lodash');
+var Element = require('./element');
+require('./rule');
+require('./template');
+
+//var r = new Rule(1);
+//var o = new Element(19);
+//var c = o.children();
+//console.dir(r);
+//for(var i in c)
+//    if(c.hasOwnProperty(i))
+//        console.log(c[i].name());
 
 var guid = (function() {
     function s4() {
@@ -24,6 +35,9 @@ var workspaceState = require('./workspaceStoreData');
 window.workspaceStore = {
     workspaceState: workspaceState.objects,
     workspaceRules: workspaceState.rules,
+    headerConfig: {
+        selects : ['Configs']
+    },
     counter: 0,
     listeners: [],
     compile: function ( item ) {
@@ -77,11 +91,8 @@ window.workspaceStore = {
         }
     },
     getRootArrays: function () {
-        var onlyRoot = function (item) {
-            return item.root;
-        }
-        var workspaceItems = _.filter(this.workspaceState, onlyRoot);
-        return workspaceItems;
+        var self = this;
+        return Element.find('rows', function(row){return row.type == 'instance' && ~self.headerConfig.selects.indexOf(row.name)});
     },
     getItemAttributes: function (item) {
         var attributes = [];
@@ -108,6 +119,16 @@ window.workspaceStore = {
         return instanses;
     },
     getRootItems: function () {
+
+        this.getRootArrays().forEach(function(el){
+
+        });
+
+        Element.find('rows', function(row){
+            var e = new Element(row.id);
+            return e.parent().data;
+        });
+
         var onlyRoot = function (item) {
             return item.parent == null && item.ancestor != null && item.type == 'instance';
         }
@@ -174,12 +195,10 @@ window.workspaceStore = {
     createItem: function (fields) {
         var emptyItem = {name:'',value:null,parent:null,ancestor:null,type:"instance"};
         var newItem = _.assign(emptyItem, fields);
-        //crap! redo.
-        newItem.id = guid();
-        // console.log('New Item created', newItem);
-        this.workspaceState.push(newItem);
+        var e = Element.make(newItem);
         this.emitChanges();
-        return newItem.id;
+
+        return e.data.id;
     },
     update: function (id, updates) {
         var updateById = function (item) {

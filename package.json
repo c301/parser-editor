@@ -10,6 +10,9 @@
   "mainInput": "main",
   "mainOutput": "main",
   "dependencies": {
+    "big": "^0.4.2",
+    "dot": "^1.0.2",
+    "dotjs": "^0.2.0",
     "jquery": "^2.1.1",
     "lodash": "^2.4.1",
     "react": "~0.11.2",
